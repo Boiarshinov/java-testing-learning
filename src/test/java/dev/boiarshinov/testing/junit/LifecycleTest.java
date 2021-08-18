@@ -1,3 +1,5 @@
+package dev.boiarshinov.testing.junit;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

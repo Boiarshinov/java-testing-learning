@@ -1,3 +1,5 @@
+package dev.boiarshinov.testing.junit;
+
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +22,7 @@ public class TagTest {
 
 	}
 
+	//ignored while `mvn test` cause of tag
 	@Test
 	@Tag("integration")
 	void integrationTest() {

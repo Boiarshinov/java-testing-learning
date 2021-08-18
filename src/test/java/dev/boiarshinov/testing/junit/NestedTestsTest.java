@@ -1,3 +1,5 @@
+package dev.boiarshinov.testing.junit;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Assertions;
