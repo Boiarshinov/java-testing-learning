@@ -1,4 +1,4 @@
-package dev.boiarshinov.testing.assertions;
+package dev.boiarshinov.testing.assertions.hamcrest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

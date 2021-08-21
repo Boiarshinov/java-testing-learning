@@ -1,4 +1,4 @@
-package dev.boiarshinov.testing.assertions;
+package dev.boiarshinov.testing.assertions.assertj;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -8,12 +8,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class AssertJTest {
-
-	@Test
-	void objectAssert() {
-		assertThat( new Object() ).isNotEqualTo( new Object() );
-	}
+public class CollectionsAssertingTest {
 
 	@Test
 	void collectionsAssert() {
