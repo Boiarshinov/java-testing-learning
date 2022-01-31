@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-class AsyncMap<K, V> {
+public class AsyncMap<K, V> {
 
     private final Duration awaitTimeout;
     private final Map<K,TimedValueWrapper<V>> internalMap = new ConcurrentHashMap<>();
@@ -28,6 +28,12 @@ class AsyncMap<K, V> {
         } else {
             return null;
         }
+    }
+
+    public V getOrThrow(K key) {
+        V v = get(key);
+        if (v == null) throw new IllegalArgumentException(key + " key is not exist");
+        return v;
     }
 
     private static class TimedValueWrapper<V> {
