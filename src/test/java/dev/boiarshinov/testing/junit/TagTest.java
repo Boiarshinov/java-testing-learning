@@ -22,7 +22,7 @@ public class TagTest {
 
 	}
 
-	//ignored while `mvn test` cause of tag
+	//ignored while `gradle test` cause of tag
 	@Test
 	@Tag("integration")
 	void integrationTest() {

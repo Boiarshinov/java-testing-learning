@@ -24,7 +24,7 @@ public class DisableTest {
 	}
 
 	@Test
-	@DisabledOnJre( JRE.JAVA_11 )
+	@DisabledOnJre( JRE.JAVA_17 )
 	void disabledOnCurrentJDK() {
 		throw new RuntimeException();
 	}
