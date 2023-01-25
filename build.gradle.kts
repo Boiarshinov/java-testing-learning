@@ -7,6 +7,11 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 tasks.compileJava {
     options.encoding = "UTF-8"
+    System.setProperty("file.encoding", "UTF-8")
+}
+
+tasks.compileTestJava {
+    options.encoding = "UTF-8"
 }
 
 plugins {

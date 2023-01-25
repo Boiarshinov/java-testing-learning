@@ -24,7 +24,7 @@ public class ParametrizedTest {
 	class ValueSourceTest {
 
 		@ParameterizedTest(name = "[{index}] - check char count for string \"{0}\"")
-		@ValueSource(strings = { "book", "1001", /*"абвг",*/ "    ", "\t\n\r\n" }) //fixme cyrillic symbols not read properly
+		@ValueSource(strings = { "book", "1001", "абвг", "    ", "\t\n\r\n" })
 		void strings(String fourLetterString) {
 			Assertions.assertEquals( 4, fourLetterString.length() );
 		}
