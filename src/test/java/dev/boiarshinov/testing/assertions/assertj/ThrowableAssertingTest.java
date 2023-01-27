@@ -43,8 +43,9 @@ public class ThrowableAssertingTest {
 		assertThat(exception)
 			.isInstanceOf(MyException.class)
 			.hasMessage("exception message")
-			.hasCauseInstanceOf(IllegalArgumentException.class)
-			.hasRootCauseMessage("root exception message");
+			.getCause()
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessage("root exception message");
 	}
 
     private static class MyException extends RuntimeException {
