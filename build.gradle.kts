@@ -16,6 +16,7 @@ tasks.compileTestJava {
 
 plugins {
     java
+    id("io.qameta.allure") version "2.11.2"
 }
 
 repositories {
@@ -26,10 +27,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.awaitility:awaitility:4.1.1")
-    implementation("org.assertj:assertj-core:3.22.0")
-    implementation("com.jayway.jsonpath:json-path:2.6.0")
-    implementation("org.jooq:joox:1.6.2")
+    testImplementation("org.awaitility:awaitility:4.1.1")
+    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("com.jayway.jsonpath:json-path:2.6.0")
+    testImplementation("org.jooq:joox:1.6.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("org.hamcrest:hamcrest:2.2")
 }
@@ -38,4 +39,8 @@ tasks.test {
     useJUnitPlatform {
         excludeTags("integration")
     }
+}
+
+allure {
+
 }
