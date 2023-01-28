@@ -42,5 +42,11 @@ tasks.test {
 }
 
 allure {
-
+    adapter {
+        frameworks {
+            junit5 {//used by default
+                // configuration if needed
+            }
+        }
+    }
 }
