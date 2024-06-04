@@ -3,3 +3,4 @@
  */
 
 rootProject.name = "java-testing-learning"
+include("cucumber")
