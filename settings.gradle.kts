@@ -4,3 +4,4 @@
 
 rootProject.name = "java-testing-learning"
 include("cucumber")
+include("mock-server")
