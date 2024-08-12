@@ -7,6 +7,6 @@ ij_continuation_indent_size = 4
 indent_style = space
 insert_final_newline = true
 
-[.yml]
+[*.yml]
 indent_size = 2
 tab_width = 2
