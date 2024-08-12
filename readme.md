@@ -10,3 +10,7 @@ To generate allure report:
 ./gradlew allureReport
 ```
 And then open report by path `build/reports/allure-report/allureReport/index.html` in browser.
+
+
+## TODO
+Try to use AssertJ Assertions Generator
