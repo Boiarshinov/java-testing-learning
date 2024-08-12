@@ -22,10 +22,6 @@ plugins {
     kotlin("jvm")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testImplementation("org.awaitility:awaitility:4.1.1")
     testImplementation("org.assertj:assertj-core:3.22.0")

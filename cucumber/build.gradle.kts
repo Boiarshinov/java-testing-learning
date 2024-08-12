@@ -6,11 +6,6 @@ plugins {
 group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
     testImplementation("io.cucumber:cucumber-java:7.15.0")
     testImplementation("io.cucumber:cucumber-junit-platform-engine:7.15.0")
