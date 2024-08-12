@@ -6,10 +6,11 @@ group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation(libs.okhttp3)
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("org.mock-server:mockserver-netty-no-dependencies:5.15.0")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockserver)
 }
 
 tasks.test {

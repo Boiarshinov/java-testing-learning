@@ -7,11 +7,11 @@ group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    testImplementation("io.cucumber:cucumber-java:7.15.0")
-    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.15.0")
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation(libs.cucumber)
+    testImplementation(libs.cucumber.junit)
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.platform.suite)
 }
 
 tasks.test {

@@ -23,12 +23,14 @@ plugins {
 }
 
 dependencies {
-    testImplementation("org.awaitility:awaitility:4.1.1")
-    testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("com.jayway.jsonpath:json-path:2.6.0")
-    testImplementation("org.jooq:joox:1.6.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+
+    testImplementation(libs.awaitility)
+    testImplementation(libs.assertj)
+    testImplementation(libs.json.path)
+    testImplementation(libs.joox)
+    testImplementation(libs.hamcrest)
     implementation(kotlin("stdlib-jdk8"))
 }
 

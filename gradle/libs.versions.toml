@@ -1,0 +1,30 @@
+[versions]
+junit = "5.10.0"
+mockserver = "5.15.0"
+wiremock = "3.9.1"
+okhttp3 = "4.12.0"
+cucumber = "7.15.0"
+awaitility = "4.1.1"
+assertj = "3.22.0"
+joox = "1.6.2"
+json-path = "2.6.0"
+hamcrest = "2.2"
+
+[libraries]
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-platform-suite = { group = "org.junit.platform", name = "junit-platform-suite" }
+
+awaitility = { group = "org.awaitility", name = "awaitility", version.ref = "awaitility" }
+assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
+json-path = { group = "com.jayway.jsonpath", name = "json-path", version.ref = "json-path" }
+joox = { group = "org.jooq", name = "joox", version.ref = "joox" }
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
+
+cucumber = { group = "io.cucumber", name = "cucumber-java", version.ref = "cucumber" }
+cucumber-junit = { group = "io.cucumber", name = "cucumber-junit-platform-engine", version.ref = "cucumber" }
+
+mockserver = { group = "org.mock-server", name = "mockserver-netty-no-dependencies", version.ref = "mockserver" }
+wiremock = { group = "org.wiremock", name = "wiremock", version.ref = "wiremock" }
+
+okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
