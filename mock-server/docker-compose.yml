@@ -1,0 +1,11 @@
+# Mock Server можно запустить как отдельный docker контейнер.
+# Настроить ответы можно с помощью конфигурации, описанной в json.
+services:
+  mock-server:
+    image: mockserver/mockserver:5.15.0
+    ports:
+      - "1080:1080"
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/init.json
+    volumes:
+      - ./init.json:/config/init.json

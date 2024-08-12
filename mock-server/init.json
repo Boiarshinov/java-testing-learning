@@ -1,0 +1,13 @@
+[
+    {
+        "httpRequest": {
+            "path": "/path/to/resource"
+        },
+        "httpResponse": {
+            "body": {
+                "code": "C001",
+                "message": "Everything is fine"
+            }
+        }
+    }
+]
