@@ -1,0 +1,4 @@
+GET http://localhost:1081/path/to/resource
+Accept: application/json
+
+###
