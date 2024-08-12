@@ -2,6 +2,7 @@ package dev.boiarshinov.testing.wiremock;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import dev.boiarshinov.testing.mock.server.HttpClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ class WiremockTest {
     }
 
     @Test
-    void test() {
+    void mockResponse() {
         wireMockServer.stubFor(
             WireMock.get("/path/to/resource").willReturn(WireMock.ok("responseBody"))
         );
@@ -41,5 +42,59 @@ class WiremockTest {
         wireMockServer.verify(
             WireMock.getRequestedFor(WireMock.urlEqualTo("/path/to/resource"))
         );
+    }
+
+    @Test
+    void return404AtNoStubs() {
+        var statusAndBody = httpClient.sendGetRequest("/path/to/resource");
+
+        assertEquals(404, statusAndBody.status());
+        assertEquals(
+            "No response could be served as there are no stub mappings in this WireMock instance.",
+            statusAndBody.body()
+        );
+    }
+
+    @Test
+    void sendRequestTwiceOnOneMock() {
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource").willReturn(WireMock.ok("responseBody"))
+        );
+
+        var statusAndBody1 = httpClient.sendGetRequest("/path/to/resource");
+        var statusAndBody2 = httpClient.sendGetRequest("/path/to/resource");
+
+        assertEquals(200, statusAndBody1.status());
+        assertEquals("responseBody", statusAndBody1.body());
+
+        assertEquals(200, statusAndBody2.status());
+        assertEquals("responseBody", statusAndBody2.body());
+    }
+
+    //намного сложнее, чем в mock-server
+    @Test
+    void expectOnlyOneRequest() {
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource")
+                .inScenario("once")
+                .whenScenarioStateIs(Scenario.STARTED)
+                .willSetStateTo("next")
+                .willReturn(WireMock.ok("responseBody"))
+        );
+
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource")
+                .inScenario("once")
+                .whenScenarioStateIs("next")
+                .willReturn(WireMock.notFound())
+        );
+
+        var statusAndBody1 = httpClient.sendGetRequest("/path/to/resource");
+        var statusAndBody2 = httpClient.sendGetRequest("/path/to/resource");
+
+        assertEquals(200, statusAndBody1.status());
+        assertEquals("responseBody", statusAndBody1.body());
+        assertEquals(404, statusAndBody2.status());
+        assertEquals("", statusAndBody2.body());
     }
 }
