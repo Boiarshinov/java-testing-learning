@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 description = "java-testing-learning"
@@ -17,10 +19,10 @@ tasks.compileTestJava {
 plugins {
     java
     id("io.qameta.allure") version "2.11.2"
+    kotlin("jvm")
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -31,6 +33,7 @@ dependencies {
     testImplementation("org.jooq:joox:1.6.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("org.hamcrest:hamcrest:2.2")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -47,4 +50,12 @@ allure {
             }
         }
     }
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "17"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "17"
 }
