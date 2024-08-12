@@ -1,23 +1,37 @@
 package dev.boiarshinov.testing.assertions.assertj
 
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.Test
+import org.opentest4j.MultipleFailuresError
 
 class KSoftAssertionTest {
 
     @Test
     fun assertSoftly() {
-        SoftAssertions.assertSoftly {
-            it.assertThat("Joshua Bloch").isEqualTo("Bruce Eckel")
-            it.assertThat("Java 7").isGreaterThan("Java 8")
+        explorationTest {
+            SoftAssertions.assertSoftly {
+                it.assertThat("Joshua Bloch").isEqualTo("Bruce Eckel")
+                it.assertThat("Java 7").isGreaterThan("Java 8")
+            }
         }
     }
 
     @Test
     fun `assertSoftly with custom util function`() {
-        assertSoftly {
-            assertThat("Joshua Bloch").isEqualTo("Bruce Eckel")
-            assertThat("Java 7").isGreaterThan("Java 8")
+        explorationTest {
+            assertSoftly {
+                assertThat("Joshua Bloch").isEqualTo("Bruce Eckel")
+                assertThat("Java 7").isGreaterThan("Java 8")
+            }
+        }
+    }
+
+    private fun explorationTest(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: MultipleFailuresError) {
+            assertThat(e.failures).hasSize(2)
         }
     }
 }
