@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WiremockTest {
 
@@ -96,5 +97,32 @@ class WiremockTest {
         assertEquals("responseBody", statusAndBody1.body());
         assertEquals(404, statusAndBody2.status());
         assertEquals("", statusAndBody2.body());
+    }
+
+    @Test
+    void delayedResponse() {
+        int delay = 1000;
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource")
+                .willReturn(
+                    WireMock.ok("responseBody")
+                        .withFixedDelay(delay))
+        );
+
+        long requestTimeMillis = measureTime(() -> {
+            var statusAndBody = httpClient.sendGetRequest("/path/to/resource");
+
+            assertEquals(200, statusAndBody.status());
+            assertEquals("responseBody", statusAndBody.body());
+        });
+
+        assertTrue(requestTimeMillis >= delay);
+    }
+
+    private long measureTime(Runnable runnable) {
+        long startMillis = System.currentTimeMillis();
+        runnable.run();
+        long finishMillis = System.currentTimeMillis();
+        return finishMillis - startMillis;
     }
 }
