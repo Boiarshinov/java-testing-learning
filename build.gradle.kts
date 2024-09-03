@@ -1,5 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    java
+    id("io.qameta.allure") version "2.11.2"
+    kotlin("jvm")
+}
+
 group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 description = "java-testing-learning"
@@ -14,12 +20,6 @@ tasks.compileJava {
 
 tasks.compileTestJava {
     options.encoding = "UTF-8"
-}
-
-plugins {
-    java
-    id("io.qameta.allure") version "2.11.2"
-    kotlin("jvm")
 }
 
 dependencies {
