@@ -1,7 +1,9 @@
 package dev.boiarshinov.testing.mock.server;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -22,6 +24,24 @@ public class HttpClient {
         Request request = new Request.Builder()
             .url(baseUrl + ":" + port + path)
             .get()
+            .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+            return new StatusAndBody(
+                response.code(),
+                response.body().string()
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public StatusAndBody sendPostRequest(String path, String body) {
+        OkHttpClient httpClient = new OkHttpClient();
+
+        Request request = new Request.Builder()
+            .url(baseUrl + ":" + port + path)
+            .post(RequestBody.create(body, MediaType.parse("application/json")))
             .build();
 
         try (Response response = httpClient.newCall(request).execute()) {

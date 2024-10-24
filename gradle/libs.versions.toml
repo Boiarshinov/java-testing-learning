@@ -9,6 +9,8 @@ assertj = "3.22.0"
 joox = "1.6.2"
 json-path = "2.6.0"
 hamcrest = "2.2"
+slf4j = "1.7.36"
+logback = "1.3.14"
 
 [libraries]
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
@@ -28,3 +30,6 @@ mockserver = { group = "org.mock-server", name = "mockserver-netty-no-dependenci
 wiremock = { group = "org.wiremock", name = "wiremock", version.ref = "wiremock" }
 
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
