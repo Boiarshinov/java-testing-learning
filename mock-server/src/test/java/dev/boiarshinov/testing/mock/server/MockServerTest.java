@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MockServerTest {
 
-    private static ClientAndServer mockServer;
-
     private HttpClient httpClient;
+    private static ClientAndServer mockServer;
+    //based on netty
 
     @BeforeAll
     static void setUp() {
@@ -135,6 +135,32 @@ class MockServerTest {
     }
 
     @Test
+    void verifyQueryParam() {
+        mockServer.when(
+                HttpRequest.request()
+                    .withMethod("GET")
+                    .withPath("/path/to/resource")
+            )
+            .respond(
+                HttpResponse.response()
+                    .withHeader(Header.header("Content-Type", "application/json"))
+                    .withBody("responseBody")
+            );
+
+        var statusAndBody = httpClient.sendGetRequest("/path/to/resource", "filter", "value");
+
+        assertEquals(200, statusAndBody.status());
+        assertEquals("responseBody", statusAndBody.body());
+
+        mockServer.verify(HttpRequest.request()
+            .withMethod("GET")
+            .withPath("/path/to/resource")
+            .withQueryStringParameter("filter", "value")
+        );
+        //В случае провала валидации сообщение об ошибке норм
+    }
+
+    @Test
     void return404AtNoExpectations() {
         var statusAndBody = httpClient.sendGetRequest("/path/to/resource");
 
@@ -183,6 +209,38 @@ class MockServerTest {
         assertEquals("responseBody", statusAndBody1.body());
         assertEquals(404, statusAndBody2.status());
         assertEquals("", statusAndBody2.body());
+    }
+
+    @Test
+    void checkClientRetries() {
+        mockServer.when(
+                HttpRequest.request()
+                    .withMethod("GET")
+                    .withPath("/path/to/resource"),
+                Times.exactly(1))
+            .respond(
+                HttpResponse.response()
+                    .withStatusCode(503)
+            );
+        mockServer.when(
+                HttpRequest.request()
+                    .withMethod("GET")
+                    .withPath("/path/to/resource")
+            )
+            .respond(
+                HttpResponse.response()
+                    .withHeader(Header.header("Content-Type", "application/json"))
+                    .withBody("responseBody")
+            );
+
+        //Как будто в клиенте написаны ретраи при негативных ответах
+        var statusAndBody1 = httpClient.sendGetRequest("/path/to/resource");
+        var statusAndBody2 = httpClient.sendGetRequest("/path/to/resource");
+
+        assertEquals(503, statusAndBody1.status());
+        assertEquals("", statusAndBody1.body());
+        assertEquals(200, statusAndBody2.status());
+        assertEquals("responseBody", statusAndBody2.body());
     }
 
     @Test

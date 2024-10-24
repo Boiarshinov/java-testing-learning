@@ -16,6 +16,7 @@ class WiremockTest {
 
     private HttpClient httpClient;
     private static WireMockServer wireMockServer;
+    //based on jetty
 
     @BeforeAll
     static void prepare() {
@@ -110,6 +111,27 @@ class WiremockTest {
     }
 
     @Test
+    void verifyQueryParam() {
+        wireMockServer.stubFor(
+            WireMock.get(WireMock.urlPathEqualTo("/path/to/resource"))
+                .willReturn(WireMock.ok("responseBody")
+                    .withHeader("Content-Type", "application/json"))
+        );
+
+        var statusAndBody = httpClient.sendGetRequest("/path/to/resource", "filter", "value");
+
+        assertEquals(200, statusAndBody.status());
+        assertEquals("responseBody", statusAndBody.body());
+
+        wireMockServer.verify(
+            WireMock.getRequestedFor(WireMock.urlPathEqualTo("/path/to/resource"))
+                .withoutQueryParam("nonexist")
+                .withQueryParam("filter", WireMock.equalTo("value"))
+        );
+        //В случае провала валидации сообщение об ошибке норм
+    }
+
+    @Test
     void return404AtNoStubs() {
         var statusAndBody = httpClient.sendGetRequest("/path/to/resource");
 
@@ -161,6 +183,33 @@ class WiremockTest {
         assertEquals("responseBody", statusAndBody1.body());
         assertEquals(404, statusAndBody2.status());
         assertEquals("", statusAndBody2.body());
+    }
+
+    @Test
+    void checkClientRetries() {
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource")
+                .inScenario("retry")
+                .whenScenarioStateIs(Scenario.STARTED)
+                .willSetStateTo("repaired")
+                .willReturn(WireMock.serviceUnavailable())
+        );
+
+        wireMockServer.stubFor(
+            WireMock.get("/path/to/resource")
+                .inScenario("retry")
+                .whenScenarioStateIs("repaired")
+                .willReturn(WireMock.ok("responseBody"))
+        );
+
+        //Как будто в клиенте написаны ретраи при негативных ответах
+        var statusAndBody1 = httpClient.sendGetRequest("/path/to/resource");
+        var statusAndBody2 = httpClient.sendGetRequest("/path/to/resource");
+
+        assertEquals(503, statusAndBody1.status());
+        assertEquals("", statusAndBody1.body());
+        assertEquals(200, statusAndBody2.status());
+        assertEquals("responseBody", statusAndBody2.body());
     }
 
     @Test

@@ -19,10 +19,18 @@ public class HttpClient {
     }
 
     public StatusAndBody sendGetRequest(String path) {
+        return sendGetRequest(path, null, null);
+    }
+
+    public StatusAndBody sendGetRequest(String path, String queryParam, String queryValue) {
         OkHttpClient httpClient = new OkHttpClient();
 
+        String queryPart = queryParam != null
+            ? "?" + queryParam + "=" + queryValue
+            : "";
+
         Request request = new Request.Builder()
-            .url(baseUrl + ":" + port + path)
+            .url(baseUrl + ":" + port + path + queryPart)
             .get()
             .build();
 
