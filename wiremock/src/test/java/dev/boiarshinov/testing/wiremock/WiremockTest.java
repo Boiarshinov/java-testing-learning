@@ -3,7 +3,7 @@ package dev.boiarshinov.testing.wiremock;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
-import dev.boiarshinov.testing.mock.server.HttpClient;
+import dev.boiarshinov.testing.http.client.HttpClient;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

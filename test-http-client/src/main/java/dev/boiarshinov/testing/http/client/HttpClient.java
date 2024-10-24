@@ -1,4 +1,4 @@
-package dev.boiarshinov.testing.mock.server;
+package dev.boiarshinov.testing.http.client;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

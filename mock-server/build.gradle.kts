@@ -6,7 +6,7 @@ group = "dev.boiarshinov"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(libs.okhttp3)
+    implementation(project(":test-http-client"))
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)

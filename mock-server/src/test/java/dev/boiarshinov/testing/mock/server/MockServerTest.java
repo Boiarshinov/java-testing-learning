@@ -1,5 +1,6 @@
 package dev.boiarshinov.testing.mock.server;
 
+import dev.boiarshinov.testing.http.client.HttpClient;
 import org.junit.jupiter.api.*;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.matchers.Times;

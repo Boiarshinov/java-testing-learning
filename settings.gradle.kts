@@ -2,6 +2,7 @@ rootProject.name = "java-testing-learning"
 include("cucumber")
 include("mock-server")
 include("wiremock")
+include("test-http-client")
 
 pluginManagement {
     plugins {
