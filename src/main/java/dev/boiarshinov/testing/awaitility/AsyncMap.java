@@ -23,8 +23,8 @@ public class AsyncMap<K, V> {
         if (timedValueWrapper == null) {
             return null;
         }
-        if (Duration.between(Instant.now(), timedValueWrapper.getUpdatedAt()).abs().compareTo(awaitTimeout) > 0) {
-            return timedValueWrapper.getValue();
+        if (Duration.between(Instant.now(), timedValueWrapper.updatedAt()).abs().compareTo(awaitTimeout) > 0) {
+            return timedValueWrapper.value();
         } else {
             return null;
         }
@@ -36,25 +36,9 @@ public class AsyncMap<K, V> {
         return v;
     }
 
-    private static class TimedValueWrapper<V> {
-        private final V value;
-        private final Instant updatedAt;
-
-        private TimedValueWrapper(V value, Instant updatedAt) {
-            this.value = value;
-            this.updatedAt = updatedAt;
-        }
-
+    private record TimedValueWrapper<V>(V value, Instant updatedAt) {
         public static <V> TimedValueWrapper<V> of(V value) {
             return new TimedValueWrapper<>(value, Instant.now());
-        }
-
-        public V getValue() {
-            return value;
-        }
-
-        public Instant getUpdatedAt() {
-            return updatedAt;
         }
     }
 }
