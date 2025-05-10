@@ -42,6 +42,16 @@ public class SoftAssertionTest {
         );
     }
 
+    @Test
+    void countErrorsWithoutThrowing() {
+        var softly = new SoftAssertions();
+
+        softly.assertThat("Joshua Bloch").isEqualTo("Bruce Eckel");
+        softly.assertThat("Java 7").isGreaterThan("Java 8");
+
+        assertThat(softly.errorsCollected()).hasSize(2);
+    }
+
     void explorationTest(Runnable runnable) {
         try {
             runnable.run();
