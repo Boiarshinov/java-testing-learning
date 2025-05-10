@@ -31,6 +31,9 @@ dependencies {
     testImplementation(libs.json.path)
     testImplementation(libs.joox)
     testImplementation(libs.hamcrest)
+    testImplementation(libs.json.assert)
+    testImplementation(libs.assertj.json)
+    implementation(libs.jackson) //нужен для json-unit-assertj
     implementation(kotlin("stdlib-jdk8"))
 }
 

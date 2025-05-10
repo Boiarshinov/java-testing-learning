@@ -19,7 +19,9 @@ junit-platform-suite = { group = "org.junit.platform", name = "junit-platform-su
 
 awaitility = { group = "org.awaitility", name = "awaitility", version.ref = "awaitility" }
 assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
+assertj-json = { group = "net.javacrumbs.json-unit", name = "json-unit-assertj", version = "4.0.0" }
 json-path = { group = "com.jayway.jsonpath", name = "json-path", version.ref = "json-path" }
+json-assert = { group = "org.skyscreamer", name = "jsonassert", version = "1.5.3" }
 joox = { group = "org.jooq", name = "joox", version.ref = "joox" }
 hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 
@@ -33,3 +35,5 @@ okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okht
 
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+jackson = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.18.1" }
