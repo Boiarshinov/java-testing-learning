@@ -1,0 +1,10 @@
+services:
+  wiremock:
+    container_name: "wiremock-for-gatling"
+    image: wiremock/wiremock:3.9.1
+    ports:
+      - "8432:8080"
+    volumes:
+#      - ./__files:/home/wiremock/__files
+      - ./wiremock_mappings:/home/wiremock/mappings
+    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]

@@ -1,0 +1,26 @@
+{
+    "mappings": [
+        {
+            "request": {
+                "method": "GET",
+                "url": "/ping"
+            },
+            "response": {
+                "status": 200
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "url": "/path/to/resource"
+            },
+            "response": {
+                "status": 200,
+                "jsonBody": {
+                    "code": "C001",
+                    "message": "Everything is fine"
+                }
+            }
+        }
+    ]
+}

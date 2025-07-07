@@ -3,6 +3,7 @@ include("cucumber")
 include("mock-server")
 include("wiremock")
 include("test-http-client")
+include("gatling")
 
 pluginManagement {
     plugins {
